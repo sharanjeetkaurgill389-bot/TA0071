@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>LevelUp - Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body{
+    font-family:Poppins;
+    background:linear-gradient(45deg,#141e30,#243b55);
+    color:white;
+    text-align:center;
+    padding:40px;
+}
+
+.level-btn{
+    padding:12px 25px;
+    margin:10px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    font-weight:600;
+    background:linear-gradient(45deg,#ffcc00,#ff9900);
+}
+
+.question-box{
+    margin-top:30px;
+    display:none;
+}
+
+textarea{
+    width:80%;
+    height:80px;
+    margin:10px;
+    border-radius:10px;
+    padding:10px;
+}
+
+.submit-btn{
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    background:#ffcc00;
+}
+
+.result{
+    margin-top:20px;
+    font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Select Your Level 🚀</h1>
+
+<button class="level-btn" onclick="startLevel('beginner')">Beginner</button>
+<button class="level-btn" onclick="startLevel('intermediate')">Intermediate</button>
+<button class="level-btn" onclick="startLevel('advanced')">Advanced</button>
+
+<div class="question-box" id="questionBox">
+    <h2 id="questionText"></h2>
+    <textarea id="userAnswer" placeholder="Type your answer here..."></textarea><br>
+    <button class="submit-btn" onclick="checkAnswer()">Submit</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+
+let questions = {
+beginner:[
+{q:"Tell me about yourself.",
+keywords:["engineering","skills","projects","experience","goals"]},
+{q:"Why did you choose engineering?",
+keywords:["interest","technology","problem","innovation","passion"]},
+{q:"What are your strengths?",
+keywords:["teamwork","leadership","communication","technical","hardworking"]},
+{q:"What are your weaknesses?",
+keywords:["improve","learning","growth","time","confidence"]},
+{q:"Describe your final year project.",
+keywords:["project","design","implementation","technology","result"]}
+],
+intermediate:[
+{q:"Explain a challenging project you worked on.",
+keywords:["challenge","solution","team","result","skills"]},
+{q:"How do you handle deadlines?",
+keywords:["planning","time","priority","focus","deliver"]},
+{q:"Describe a failure and what you learned.",
+keywords:["mistake","lesson","improve","growth","experience"]},
+{q:"How do you work in a team?",
+keywords:["collaboration","communication","support","lead","respect"]},
+{q:"Where do you see yourself in 5 years?",
+keywords:["career","growth","skills","responsibility","success"]}
+],
+advanced:[
+{q:"How would you handle workplace conflict?",
+keywords:["communication","resolve","professional","listen","solution"]},
+{q:"Explain leadership in engineering context.",
+keywords:["lead","team","decision","vision","responsibility"]},
+{q:"Why should we hire you?",
+keywords:["skills","value","experience","fit","contribution"]},
+{q:"Explain a time you improved a system.",
+keywords:["improve","optimize","efficiency","analysis","result"]},
+{q:"How do you stay updated with technology?",
+keywords:["learning","courses","research","innovation","development"]}
+]
+};
+
+let currentLevel;
+let currentQuestionIndex=0;
+let totalScore=0;
+
+function startLevel(level){
+currentLevel=level;
+currentQuestionIndex=0;
+totalScore=0;
+document.getElementById("questionBox").style.display="block";
+showQuestion();
+}
+
+function showQuestion(){
+let q = questions[currentLevel][currentQuestionIndex];
+document.getElementById("questionText").innerText=q.q;
+document.getElementById("userAnswer").value="";
+document.getElementById("result").innerText="";
+}
+
+function checkAnswer(){
+let userAnswer=document.getElementById("userAnswer").value.toLowerCase();
+let keywords=questions[currentLevel][currentQuestionIndex].keywords;
+
+let score=0;
+let missing=[];
+
+keywords.forEach(word=>{
+if(userAnswer.includes(word)){
+score++;
+}else{
+missing.push(word);
+}
+});
+
+let accuracy=Math.round((score/keywords.length)*100);
+totalScore+=accuracy;
+
+document.getElementById("result").innerHTML=
+"Accuracy: "+accuracy+"%<br>Missing points: "+missing.join(", ");
+
+currentQuestionIndex++;
+
+if(currentQuestionIndex<5){
+setTimeout(showQuestion,2000);
+}else{
+setTimeout(()=>{
+alert("Level Completed! Average Accuracy: "+Math.round(totalScore/5)+"%");
+document.getElementById("questionBox").style.display="none";
+},2000);
+}
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LevelUp - AI Interview Practice</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#141e30);
+    background-size:400% 400%;
+    animation:bg 12s ease infinite;
+    color:white;
+}
+
+@keyframes bg{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* ================= NAVBAR ================= */
+header{
+    position:fixed;
+    width:100%;
+    top:0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 60px;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter:blur(10px);
+    z-index:1000;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:800;
+    color:#ffcc00;
+    text-shadow:0 0 15px #ffcc00;
+}
+
+nav a{
+    margin:0 20px;
+    text-decoration:none;
+    color:white;
+    font-weight:500;
+    position:relative;
+}
+
+nav a::after{
+    content:"";
+    position:absolute;
+    width:0%;
+    height:2px;
+    background:#ffcc00;
+    left:0;
+    bottom:-5px;
+    transition:0.3s;
+}
+
+nav a:hover::after{
+    width:100%;
+}
+
+/* ================= HERO ================= */
+.hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    height:100vh;
+    padding:0 80px;
+}
+
+.hero-text{
+    max-width:600px;
+}
+
+.hero-text h1{
+    font-size:55px;
+    font-weight:800;
+}
+
+.hero-text p{
+    margin:20px 0;
+    font-size:18px;
+    opacity:0.85;
+}
+
+.btn{
+    padding:14px 30px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(45deg,#ffcc00,#ff9900);
+    font-weight:700;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 20px #ffcc00;
+}
+
+/* Animated Coin */
+.coin{
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    background:linear-gradient(45deg,#ffcc00,#ff9900);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:800;
+    font-size:30px;
+    color:#222;
+    animation:rotate 4s linear infinite;
+    box-shadow:0 0 30px rgba(255,204,0,0.7);
+}
+
+@keyframes rotate{
+    from{transform:rotateY(0deg);}
+    to{transform:rotateY(360deg);}
+}
+
+/* ================= FEATURES ================= */
+.features{
+    padding:100px 80px;
+    text-align:center;
+}
+
+.features h2{
+    font-size:40px;
+    margin-bottom:50px;
+}
+
+.feature-box{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:250px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    padding:30px;
+    border-radius:20px;
+    margin:20px;
+    transition:0.4s;
+}
+
+.card:hover{
+    transform:translateY(-15px) scale(1.05);
+    box-shadow:0 0 25px rgba(255,255,255,0.3);
+}
+
+
+
+/* ================= FOOTER ================= */
+footer{
+    background:rgba(0,0,0,0.6);
+    padding:30px;
+    text-align:center;
+}
+
+/* ================= LOGIN POPUP ================= */
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    top:0;
+    left:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.popup{
+    background:#1c1c1c;
+    padding:40px;
+    border-radius:20px;
+    width:350px;
+    text-align:center;
+    animation:popupAnim 0.5s ease;
+}
+
+@keyframes popupAnim{
+    from{transform:scale(0.5);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+.popup input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:10px;
+}
+
+.popup button{
+    width:100%;
+    margin-top:15px;
+}
+
+.close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+@media(max-width:900px){
+    .hero{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">LevelUp 🎮</div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#about">About</a>
+        <a href="leaderboard.html">Leaderboard</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>Level Up Your Interview Skills 🚀</h1>
+        <p>AI-powered mock interviews with XP rewards, badges, and leaderboard competition.</p>
+        <button class="btn" onclick="openPopup()">Get Started</button>
+    </div>
+    <div class="coin">XP</div>
+</section>
+
+<section class="features" id="about">
+    <h2>Why Choose LevelUp?</h2>
+    <div class="feature-box">
+        <div class="card">🤖 AI Mock Interviews</div>
+        <div class="card">⚡ Instant Smart Feedback</div>
+        <div class="card">🏆 XP & Badges</div>
+        <div class="card">📊 Leaderboard Ranking</div>
+    </div>
+</section>
+
+
+
+<footer>
+    © 2026 LevelUp | AI Interview Practice Platform
+</footer>
+
+<!-- LOGIN POPUP -->
+<div class="overlay" id="overlay">
+    <div class="popup">
+        <div class="close" onclick="closePopup()">✖</div>
+        <h2>Welcome Back</h2>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button class="btn"><a href = "practice.html">Login</a></button>
+    </div>
+</div>
+
+<script>
+function openPopup(){
+    document.getElementById("overlay").style.display="flex";
+}
+
+function closePopup(){
+    document.getElementById("overlay").style.display="none";
+}
+</script>
+
+</body>
+</html>

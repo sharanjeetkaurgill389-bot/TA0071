@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leaderboard - LevelUp</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #1e40af;
+      padding: 20px;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    table {
+      width: 80%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background: #1e293b;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #334155;
+    }
+
+    th {
+      background: #2563eb;
+    }
+
+    tr:hover {
+      background: #334155;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #22c55e;
+      color: black;
+    }
+
+    button:hover {
+      background: #16a34a;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏆 Leaderboard</h1>
+  <p>Top Performers</p>
+</header>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Level</th>
+      <th>XP</th>
+      <th>Accuracy</th>
+    </tr>
+  </thead>
+  <tbody id="leaderboardBody">
+    <!-- Data inserted by JS -->
+  </tbody>
+</table>
+
+<button onclick="goHome()">⬅ Back to Home</button>
+
+<script>
+  const leaderboardData = [
+    { name: "Ritika", level: "Difficult", xp: 1200, accuracy: "92%" },
+    { name: "Amit", level: "Intermediate", xp: 950, accuracy: "88%" },
+    { name: "Neha", level: "Beginner", xp: 800, accuracy: "85%" },
+    { name: "Rahul", level: "Intermediate", xp: 700, accuracy: "80%" },
+    { name: "Priya", level: "Beginner", xp: 600, accuracy: "78%" }
+  ];
+
+  const tableBody = document.getElementById("leaderboardBody");
+
+  leaderboardData.forEach((user, index) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${user.name}</td>
+      <td>${user.level}</td>
+      <td>${user.xp}</td>
+      <td>${user.accuracy}</td>
+    `;
+
+    tableBody.appendChild(row);
+  });
+
+  function goHome() {
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>
